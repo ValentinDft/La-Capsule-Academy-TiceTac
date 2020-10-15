@@ -30,9 +30,16 @@ h2{
   color: #d63031 !important;
 }
 
-.formulaire{
+.formulaire_recherche{
   width: 65%;
   margin-left: 20%;
+}
+
+.formulaire_inscription{
+  width: 65%;
+  margin-left: 15%;
+  margin-top: 10%;
+  text-align: center;
 }
 
 .btn-go{

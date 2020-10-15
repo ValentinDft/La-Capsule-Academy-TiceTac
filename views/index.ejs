@@ -20,13 +20,16 @@
         <div class="col-12">
           <form action="POST" action="">
             <div class="form-row formulaire_recherche">
-              <div class="col-4">
+              <div class="col-3">
                 <input type="text" class="form-control" placeholder="From: Paris, Marseille...." name="departure" required>
               </div>
-              <div class="col-4">
+              <div class="col-3">
                 <input type="text" class="form-control" placeholder="To: Lille, Nantes..." name="arrival" required>
               </div>
-              <div class="col-4">
+              <div class="col-3">
+                <input type="date" class="form-control" name="dateDeparture" min="<%=  %>" max="<%=  %> " required>
+              </div>
+              <div class="col-3">
                 <button type="submit" class="btn btn-danger btn-go">Go</button>
               </div>
             </div>

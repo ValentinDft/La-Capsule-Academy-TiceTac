@@ -18,6 +18,7 @@
           <h2 id="titreHomePage">One-Way ticket : </h2>
         </div>
         <div class="col-12">
+        
           <form method="POST" action="/resultat">
             <div class="form-row formulaire_recherche">
               <div class="col-3">
@@ -27,7 +28,7 @@
                 <input type="text" class="form-control" placeholder="To: Lille, Nantes..." name="arrival" required>
               </div>
               <div class="col-3">
-                <input type="date" class="form-control" name="dateDeparture" min="<%=  %>" max="<%=  %> " required>
+                <input type="date" class="form-control" name="dateDeparture" required>
               </div>
               <div class="col-3">
                 <button type="submit" class="btn btn-danger btn-go">Go</button>

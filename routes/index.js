@@ -15,8 +15,8 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/index', function(req, res, next) {
-  dateDebut = Date(2018-11-20)
-  dateFin = Date(2018-11-24)
+  dateDebut = 2018-11-20
+  dateFin = 2018-11-24
 //   if(req.session.user == null){
 //     res.redirect('/')
 //   } else 
@@ -27,39 +27,30 @@ router.get('/index', function(req, res, next) {
 // }
 
     res.render('index', {dateDebut, dateFin})
-  
 })
 
 
-router.get('/resultat', async function(req, res, next) {
-  // listeVoyages = await journeyModel.find();
-  // dateDebut = Date(2018-11-20)
-  // dateFin = Date(2018-11-24)
+
+router.post('/resultat', async function(req, res, next) {
+  let listeVoyages = await journeyModel.find();
+  departure = req.body.departure
+  arrival = req.body.arrival
+  date = req.body.dateDeparture
   let resultatPositif = [];
- 
-  // for (let i=0; i<listeVoyages.length; i++){
-  //   if (req.body.departure != listeVoyage[i].departure 
-  //         || req.body.arrival != listeVoyage[i].arrival
-  //           // || req.body.timeDeparture < dateDebut
-  //           //   || req.body.timeDeparture > dateFin
-  //           ){res.redirect('noResult', {})
-  //         } 
-  //           else if (listeVoyages[i].departure == req.body.departure 
-  //              && listeVoyages[i].departure == req.body.arrival
-  //              // && req.body.dayDeparture >= dateDebut 
-  //               //   && req.body.dayDeparture <= dateFin
-  //                )
-  //         {resultatPositif.push( listeVoyages[i] ) }
-  // }
-
-  res.render('resultat', { resultatPositif });
-});
-
+  
+  for (let i=0; i<listeVoyages.length; i++){
+            if(listeVoyages[i].departure.toLowerCase() == req.body.departure.toLowerCase() 
+        && listeVoyages[i].arrival.toLowerCase() == req.body.arrival.toLowerCase())
+        {
+           resultatPositif.push(listeVoyages[i] );
+           } 
+        }console.log(resultatPositif)
+  res.render('resultat', {resultatPositif });
+})
 
 router.get('/noResult', async function(req, res, next){
   res.render('noResult', {})
 })
-
 
 
 router.get('/panier', async function(req, res, next){

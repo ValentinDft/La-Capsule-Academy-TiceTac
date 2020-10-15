@@ -1,8 +1,25 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  background-image: url("/images/landmark.png");
+  background-repeat: no-repeat;
+  background-position: right 50% bottom 350%;
+  background-size: 250px 225px;
+  background-color: rgb(153,187,240);
 }
 
-a {
-  color: #00B7FF;
+h2{
+  color: #ffffff;
+}
+
+#pictoNav{
+  height: 40px;
+  width: 40px;
+}
+
+.link-menu{
+  color: #2d3436 !important;
+}
+
+.link-menu:hover{
+  color: #d63031 !important;
 }

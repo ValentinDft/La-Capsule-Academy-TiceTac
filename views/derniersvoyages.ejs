@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ticketac</title>
+    <title>Ticketac | Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -12,31 +12,34 @@
     <!-- Navbar -->
     <%- include('nav'); %>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <h2 id="titreHomePage">One-Way ticket : </h2>
-        </div>
-        <div class="col-12">
-        
-          <form method="POST" action="/resultat">
-            <div class="form-row formulaire_recherche">
-              <div class="col-3">
-                <input type="text" class="form-control" placeholder="From: Paris, Marseille...." name="departure" required>
-              </div>
-              <div class="col-3">
-                <input type="text" class="form-control" placeholder="To: Lille, Nantes..." name="arrival" required>
-              </div>
-              <div class="col-3">
-                <input type="date" class="form-control" name="dateDeparture" required>
-              </div>
-              <div class="col-3">
-                <button type="submit" class="btn btn-danger btn-go">Go</button>
-              </div>
+    <div class="container"> 
+        <div class="row">
+            <div class="col-6">
+                <h2 id="titreHomePage">My last trips  : </h2>
             </div>
-          </form>
+            <div class="col-12">
+                <table class="table table-borderless table-striped table-panier">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Journey</th>
+                            <th>Departure time</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <th>Paris / Bordeaux</th>
+                            <th>20:00</th>
+                            <th>90€</th>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="/index"><input type="button" class="btn btn-danger" value="Home"></a>
+            </div>
         </div>
-      </div>
+        
     </div>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

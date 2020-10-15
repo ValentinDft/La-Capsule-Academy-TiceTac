@@ -48,8 +48,6 @@ router.post('/resultat', async function(req, res, next) {
   res.render('resultat', {resultatPositif });
 })
 
-
-
 router.get('/noResult', async function(req, res, next){
   res.render('noResult', {})
 })

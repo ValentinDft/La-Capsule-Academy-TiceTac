@@ -26,31 +26,31 @@ router.get('/index', function(req, res, next) {
 //        }
 // }
 
-    res.render('index', {dateDebut, DateFin})
+    res.render('index', {dateDebut, dateFin})
   
 })
 
 
-router.post('/resultat', async function(req, res, next) {
-  listeVoyages = await journeyModel.find();
-  dateDebut = Date(2018-11-20)
-  dateFin = Date(2018-11-24)
+router.get('/resultat', async function(req, res, next) {
+  // listeVoyages = await journeyModel.find();
+  // dateDebut = Date(2018-11-20)
+  // dateFin = Date(2018-11-24)
   let resultatPositif = [];
  
-  for (let i=0; i<listeVoyages.length; i++){
-    if (req.body.departure != listeVoyage[i].departure 
-          || req.body.arrival != listeVoyage[i].arrival
-            // || req.body.timeDeparture < dateDebut
-            //   || req.body.timeDeparture > dateFin
-            ){res.redirect('noResult', {})
-          } 
-            else if (listeVoyages[i].departure == req.body.departure 
-               && listeVoyages[i].departure == req.body.arrival
-               // && req.body.dayDeparture >= dateDebut 
-                //   && req.body.dayDeparture <= dateFin
-                 )
-          {resultatPositif.push( listeVoyages[i] ) }
-  }
+  // for (let i=0; i<listeVoyages.length; i++){
+  //   if (req.body.departure != listeVoyage[i].departure 
+  //         || req.body.arrival != listeVoyage[i].arrival
+  //           // || req.body.timeDeparture < dateDebut
+  //           //   || req.body.timeDeparture > dateFin
+  //           ){res.redirect('noResult', {})
+  //         } 
+  //           else if (listeVoyages[i].departure == req.body.departure 
+  //              && listeVoyages[i].departure == req.body.arrival
+  //              // && req.body.dayDeparture >= dateDebut 
+  //               //   && req.body.dayDeparture <= dateFin
+  //                )
+  //         {resultatPositif.push( listeVoyages[i] ) }
+  // }
 
   res.render('resultat', { resultatPositif });
 });

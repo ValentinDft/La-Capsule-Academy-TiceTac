@@ -46,6 +46,19 @@ h2{
   margin-left: 30px;
 }
 
+.btn-home{
+  margin-left: 45%;
+}
+
 input:hover{
   box-shadow: 0px 0px 5px 5px #d63031;
+}
+
+.list-billet{
+  margin-left: 15%;
+  margin-bottom: 5px;
+}
+
+.table-panier{
+  background-color: #ffffff;
 }

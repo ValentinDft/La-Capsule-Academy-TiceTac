@@ -29,13 +29,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <th>Paris / Bordeaux</th>
-                            <th>12/12/12</th>
-                            <th>20:00</th>
-                            <th>90€</th>
-                        </tr>
+                        <% for (let i = 0; i < panier.length; i++) { %>
+                            <tr>
+                                <th><%= i%></th>
+                                <th><%= panier[i].departure%> / <%= panier[i].arrival%></th>
+                                <th><%= panier[i].date%></th>
+                                <th><%= panier[i].departureTime%></th>
+                                <th><%= panier[i].price%> €</th>
+                            </tr>
+                        <% } %>         
                     </tbody>
                     <tfoot style="background-color: #d63031;">
                         <th>Total</th>

@@ -64,6 +64,8 @@ router.get('/panier', async function(req, res, next){
     quantity: 1
   })
 
+  console.log(panier);
+
   res.render('panier', {panier})
 })
 

@@ -21,12 +21,14 @@
         <div class="row">
             <div class="col-10">
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center list-billet">
-                        Paris / Marseille 
-                        <small>Train departure at : <%=  %></small> 
-                        90€
-                        <input type="button" class="btn btn-danger" value="OK">
-                    </li>
+                    <% for (let i = 0; i < resultatPositif.length; i++) { %>
+                        <li class="list-group-item d-flex justify-content-between align-items-center list-billet">
+                            <%= resultatPositif[i].departure %>  / <%= resultatPositif[i].arrival %> 
+                            <small>Train departure at : <%=  resultatPositif[i].departureTime %></small> 
+                            <%= resultatPositif[i].price %> €
+                            <a href="/panier?id=<%= resultatPositif[i]._id %>&departure=<%= resultatPositif[i].departure %>&arrival=<%= resultatPositif[i].arrival %>&departureTime=<%= resultatPositif[i].departureTime %>&date=<%= resultatPositif[i].date%>&price=<%= resultatPositif[i].price%>"><input type="button" class="btn btn-danger" value="OK"></a>
+                        </li>
+                    <% } %> 
                 </ul>
             </div>
         </div>

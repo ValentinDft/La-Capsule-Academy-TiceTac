@@ -2,13 +2,19 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-image: url("/images/landmark.png");
   background-repeat: no-repeat;
-  background-position: right 50% bottom 350%;
+  background-position: right 50% bottom 5000%;
   background-size: 250px 225px;
   background-color: rgb(153,187,240);
 }
 
 h2{
   color: #ffffff;
+}
+
+#titreHomePage{
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 25px;
 }
 
 #pictoNav{
@@ -22,4 +28,13 @@ h2{
 
 .link-menu:hover{
   color: #d63031 !important;
+}
+
+.formulaire{
+  width: 65%;
+  margin-left: 20%;
+}
+
+.btn-go{
+  margin-left: 30px;
 }

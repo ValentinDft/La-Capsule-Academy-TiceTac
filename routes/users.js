@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var journeyModel = require('../models/journeys')
+var userModel = require('../models/users')
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -8,22 +11,23 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/sign-up', async function(req,res,next){
-
+console.log(req.body.lastname)
   var searchUser = await userModel.findOne({
-    email: req.body.emailFromFront
+    email: req.body.email
   })
   
   if(!searchUser){
     var newUser = new userModel({
-      username: req.body.usernameFromFront,
-      email: req.body.emailFromFront,
-      password: req.body.passwordFromFront,
+      lastName: req.body.lastName,
+      firstName : req.body.name,
+      email: req.body.email,
+      password: req.body.password,
     })
   
     var newUserSave = await newUser.save();
   
     req.session.user = {
-      name: newUserSave.username,
+      email: newUserSave.email,
       id: newUserSave._id,
     }
   
@@ -31,7 +35,7 @@ router.post('/sign-up', async function(req,res,next){
   
     res.redirect('/index')
   } else {
-    res.redirect('/')
+    res.redirect('/login')
   }
   
 })
@@ -39,16 +43,17 @@ router.post('/sign-up', async function(req,res,next){
 router.post('/sign-in', async function(req,res,next){
 
   var searchUser = await userModel.findOne({
-    email: req.body.emailFromFront,
-    password: req.body.passwordFromFront
+    email: req.body.email,
+    password: req.body.password
   })
 
   if(searchUser!= null){
     req.session.user = {
-      name: searchUser.username,
+      mail: searchUser.mail,
       id: searchUser._id
     }
     res.redirect('/index')
+
   } else {
     res.render('login')
   }
@@ -56,12 +61,12 @@ router.post('/sign-in', async function(req,res,next){
   
 })
 
-router.get('/logout', function(req,res,next){
+// router.get('/logout', function(req,res,next){
 
-  req.session.user = null;
+//   req.session.user = null;
 
-  res.redirect('/')
-})
+//   res.redirect('/')
+// })
 
 
 

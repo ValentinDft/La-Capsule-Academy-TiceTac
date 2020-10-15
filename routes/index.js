@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+var journeyModel = require('../models/journeys')
+var userModel = require('../models/users')
+
 const mongoose = require('mongoose');
 
 
@@ -12,6 +15,8 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/index', function(req, res, next) {
+  dateDebut = Date(2018-11-20)
+  dateFin = Date(2018-11-24)
 //   if(req.session.user == null){
 //     res.redirect('/')
 //   } else 
@@ -20,26 +25,60 @@ router.get('/index', function(req, res, next) {
 //         req.session.panier = []
 //        }
 // }
-    res.render('index', {})
+
+    res.render('index', {dateDebut, DateFin})
   
 })
 
 
-router.post('/resultat', function(req, res, next) {
-  res.render('resultat', { title: 'SNCF' });
+router.post('/resultat', async function(req, res, next) {
+  listeVoyages = await journeyModel.find();
+  dateDebut = Date(2018-11-20)
+  dateFin = Date(2018-11-24)
+  let resultatPositif = [];
+ 
+  for (let i=0; i<listeVoyages.length; i++){
+    if (req.body.departure != listeVoyage[i].departure 
+          || req.body.arrival != listeVoyage[i].arrival
+            // || req.body.timeDeparture < dateDebut
+            //   || req.body.timeDeparture > dateFin
+            ){res.redirect('noResult', {})
+          } 
+            else if (listeVoyages[i].departure == req.body.departure 
+               && listeVoyages[i].departure == req.body.arrival
+               // && req.body.dayDeparture >= dateDebut 
+                //   && req.body.dayDeparture <= dateFin
+                 )
+          {resultatPositif.push( listeVoyages[i] ) }
+  }
+
+  res.render('resultat', { resultatPositif });
 });
 
-router.get('/noresult', async function(req, res, next){
-  res.render('noresult', {})
+
+router.get('/noResult', async function(req, res, next){
+  res.render('noResult', {})
 })
 
 
+
 router.get('/panier', async function(req, res, next){
-  res.render('panier', {})
+  panier = [];
+
+  panier.push({
+    departure : req.query.departure,
+    arrival : req.query.arrival,
+    price: req.query.price,
+    departureTime : req.query.departureTime,
+    quantity: 1
+  })
+
+  res.render('panier', {panier})
 })
 
 
 router.get('/delete-journeys', async function(req, res, next){
+  panier.splice(req.query.position,1)
   res.render('panier', {})
 })
 

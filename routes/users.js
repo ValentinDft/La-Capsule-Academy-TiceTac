@@ -69,10 +69,13 @@ router.get('/logout', function(req,res,next){
 
 router.get('/derniersvoyages', async function(req, res, next){
 
-  var userSessionAffichage = await UserModel.
-  findById(req.query.id)
-  .populate('joureys')
-  .exec();
+  // var userSessionAffichage = await UserModel.
+  // findById(req.query.id)
+  // .populate('joureys')
+  // .exec();
+
+  let voyage = JSON.parse(req.query.voyage);
+  console.log(voyage);
 
   res.render('derniersvoyages', {})
 })

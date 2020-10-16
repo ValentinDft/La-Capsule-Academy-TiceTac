@@ -85,7 +85,7 @@ router.get('/derniersvoyages', async function(req, res, next){
   let voyageSave = await userActuel.save();
 
 
-  res.render('derniersvoyages', {})
+  res.render('derniersvoyages', {ancienVoyages})
 })
 
 

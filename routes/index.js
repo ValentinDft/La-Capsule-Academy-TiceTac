@@ -23,7 +23,7 @@ router.get('/index', function(req, res, next) {
       if(req.session.panier == undefined){
         req.session.panier = []
        }
-} console.log(req.session.panier)
+}
     res.render('index', {})
 })
 
@@ -37,11 +37,14 @@ router.post('/resultat', async function(req, res, next) {
   for (let i=0; i<listeVoyages.length; i++){
     ville.push(listeVoyages[i].departure.toLowerCase());
     ville.push(listeVoyages[i].arrival.toLowerCase());
+    ville.push(new Date(listeVoyages[i].date).getTime())
   };
 
 
   if(!ville.includes(req.body.departure.toLowerCase())
-      || !ville.includes(req.body.arrival.toLowerCase())  )
+      || !ville.includes(req.body.arrival.toLowerCase())
+        || !ville.includes(new Date(req.body.dateDeparture).getTime())
+      )
   {
     res.redirect('/noResult')
   } else {
@@ -73,7 +76,8 @@ router.get('/panier', async function(req, res, next){
     req.session.panier = []
   }
   let panier = req.session.panier
-  console.log("premier panier vide" + panier)
+  console.log("panier" + panier )
+
   // let dejaDansLepanier = false;
 
   // for(var i = 0; i< req.session.panier.length; i++){
@@ -84,33 +88,27 @@ router.get('/panier', async function(req, res, next){
   // }
 
   // if(dejaDansLepanier == false){
-
-      panier.push({
-      departure: req.query.departure,
-      arrival: req.query.arrival,
-      departureTime : req.query.departureTime,
-      date: req.query.date,
-      price: req.query.price,
-      id: req.query.id,
-      quantity: 1
-    })
-
+  //     req.session.panier.push({
+  //     departure: req.query.req.query.departure,
+  //     arrival: req.query.arrival,
+  //     price: req.query.bikePriceFromFront,
+  //     id: req.query.bikePriceFromFront,
+  //     quantity: 1
+  //   })
   // }
-  console.log(panier)
+  // console.log(req.session.panier)
   
-  // panier = [];
 
-  // panier.push({
-  //   departure : req.query.departure,
-  //   arrival : req.query.arrival,
-  //   price: req.query.price,
-  //   departureTime : req.query.departureTime,
-  //   // id : req.query.id, session
-  //   quantity: 1
-  // })
+  panier.push({
+    departure : req.query.departure,
+    arrival : req.query.arrival,
+    price: req.query.price,
+    date: req.query.date,
+    departureTime : req.query.departureTime,
+    quantity: 1
+  })
 
-  // console.log(panier);
-
+  console.log( "panier rempli " +  panier); 
 
   res.render('panier', {panier})
 })

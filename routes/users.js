@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var journeyModel = require('../models/journeys')
 var userModel = require('../models/users')
 
 
@@ -8,6 +7,7 @@ var userModel = require('../models/users')
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
 
 
 router.post('/sign-up', async function(req,res,next){
@@ -61,14 +61,21 @@ router.post('/sign-in', async function(req,res,next){
   
 })
 
-// router.get('/logout', function(req,res,next){
-
-//   req.session.user = null;
-
-//   res.redirect('/')
-// })
+router.get('/logout', function(req,res,next){
+  req.session.user = null;
+  res.redirect('/login')
+})
 
 
+router.get('/derniersvoyages', async function(req, res, next){
+
+  var userSessionAffichage = await UserModel.
+  findById(req.query.id)
+  .populate('joureys')
+  .exec();
+
+  res.render('derniersvoyages', {})
+})
 
 
 

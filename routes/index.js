@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var journeyModel = require('../models/journeys')
-var userModel = require('../models/users')
+
 
 const mongoose = require('mongoose');
 
@@ -15,45 +15,83 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/index', function(req, res, next) {
-  dateDebut = 2018-11-20
-  dateFin = 2018-11-24
 //   if(req.session.user == null){
-//     res.redirect('/')
-//   } else 
+//     res.render('login')
+//   } 
+//   else 
 //     {
 //       if(req.session.panier == undefined){
 //         req.session.panier = []
 //        }
 // }
-
-    res.render('index', {dateDebut, dateFin})
+    res.render('index', {})
 })
 
-
+ 
 
 router.post('/resultat', async function(req, res, next) {
   let listeVoyages = await journeyModel.find();
-  departure = req.body.departure
-  arrival = req.body.arrival
-  date = req.body.dateDeparture
   let resultatPositif = [];
-  
+  let ville =[];
+
   for (let i=0; i<listeVoyages.length; i++){
-            if(listeVoyages[i].departure.toLowerCase() == req.body.departure.toLowerCase() 
-        && listeVoyages[i].arrival.toLowerCase() == req.body.arrival.toLowerCase())
+    ville.push(listeVoyages[i].departure.toLowerCase());
+    ville.push(listeVoyages[i].arrival.toLowerCase());
+  };
+
+
+  if(!ville.includes(req.body.departure.toLowerCase())
+      || !ville.includes(req.body.arrival.toLowerCase())  )
+  {
+    res.redirect('/noResult')
+  } else {
+
+    for (let i=0; i<listeVoyages.length; i++){
+            if(  req.body.departure.toLowerCase() == listeVoyages[i].departure.toLowerCase()
+                && req.body.arrival.toLowerCase()==listeVoyages[i].arrival.toLowerCase()
+                   && new Date (req.body.dateDeparture).getTime() == new Date(listeVoyages[i].date).getTime()
+                )
         {
-           resultatPositif.push(listeVoyages[i] );
+           resultatPositif.push(listeVoyages[i] );      
            } 
-        }console.log(resultatPositif)
-  res.render('resultat', {resultatPositif });
+        }console.log(resultatPositif) 
+  }
+  res.render('resultat', {resultatPositif }); 
 })
+
+
 
 router.get('/noResult', async function(req, res, next){
   res.render('noResult', {})
 })
 
 
+
 router.get('/panier', async function(req, res, next){
+  
+  // if(req.session.panier == undefined){
+  //   req.session.panier = []
+  // }
+
+  // let dejaDansLepanier = false;
+
+  // for(var i = 0; i< req.session.panier.length; i++){
+  //   if(req.session.panier[i].id == req.query.id){
+  //     req.session.panier[i].quantity = Number(req.session.panier[i].quantity) + 1;
+  //     dejaDansLepanier = true;
+  //   }
+  // }
+
+  // if(dejaDansLepanier == false){
+  //     req.session.panier.push({
+  //     departure: req.query.req.query.departure,
+  //     arrival: req.query.arrival,
+  //     price: req.query.bikePriceFromFront,
+  //     id: req.query.bikePriceFromFront,
+  //     quantity: 1
+  //   })
+  // }
+  // console.log(req.session.panier)
   panier = [];
 
   panier.push({
@@ -61,6 +99,7 @@ router.get('/panier', async function(req, res, next){
     arrival : req.query.arrival,
     price: req.query.price,
     departureTime : req.query.departureTime,
+    // id : req.query.id,
     quantity: 1
   })
 
@@ -71,14 +110,13 @@ router.get('/panier', async function(req, res, next){
 
 
 router.get('/delete-journeys', async function(req, res, next){
-  panier.splice(req.query.position,1)
+  panier.splice(req.query.position,1);
+  // req.session.panier.splice(req.query.id,1);
   res.render('panier', {})
 })
 
 
-router.get('/derniersvoyages', async function(req, res, next){
-  res.render('derniersvoyages', {})
-})
+
 
 
 

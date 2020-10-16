@@ -30,6 +30,7 @@
                     </thead>
                     <tbody>
                         <% let voyage = [];
+                           let total = 0;
                             for (let i = 0; i < panier.length; i++) { %>
                             <tr>
                                 <th><%= i+1%></th>
@@ -38,7 +39,9 @@
                                 <th><%= panier[i].departureTime%></th>
                                 <th><%= panier[i].price%> €</th>
                             </tr>
-                            <% voyage = [{ departure: panier[i].departure, arrival: panier[i].arrival, date: panier[i].date, departureTime: panier[i].departureTime, price: panier[i].price}]; %> 
+                            <% voyage = [{ departure: panier[i].departure, arrival: panier[i].arrival, date: panier[i].date, departureTime: panier[i].departureTime, price: panier[i].price}]; 
+                            total += panier[i].price * panier[i].quantity;
+                            %> 
                         <% } %>         
                     </tbody>
                     <tfoot style="background-color: #d63031;">
@@ -46,10 +49,11 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th><%= %> </th>
+                        <th><%= total %> €</th>
                     </tfoot>
                 </table>
                 <a href="users/derniersvoyages?voyage=<%= JSON.stringify(voyage) %> "><input type="button" class="btn btn-danger" value="Confirm"></a>
+                <a href="/index"><input type="button" class="btn btn-warning" value="Retour"></a>
             </div>
         </div>
         

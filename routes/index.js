@@ -111,6 +111,7 @@ router.get('/panier', async function(req, res, next){
 
   // console.log(panier);
 
+
   res.render('panier', {panier})
 })
 

@@ -68,6 +68,7 @@ router.get('/logout', function(req,res,next){
 
 
 router.get('/derniersvoyages', async function(req, res, next){
+
   let voyage = JSON.parse(req.query.voyage);
   console.log(voyage)
   
@@ -82,6 +83,7 @@ router.get('/derniersvoyages', async function(req, res, next){
     }
   );
   let voyageSave = await userActuel.save();
+
 
   res.render('derniersvoyages', {})
 })

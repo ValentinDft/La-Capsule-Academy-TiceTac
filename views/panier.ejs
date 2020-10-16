@@ -13,49 +13,55 @@
     <%- include('nav'); %>
 
     <div class="container"> 
-        <div class="row">
-            <div class="col-6">
-                <h2 id="titreHomePage">My tickets  : </h2>
-            </div>
-            <div class="col-12">
-                <table class="table table-borderless table-striped table-panier">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Journey</th>
-                            <th>Date</th>
-                            <th>Departure time</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% let voyage = [];
-                           let total = 0;
-                            for (let i = 0; i < panier.length; i++) { %>
+        <% console.log(panier);
+            if (panier == undefined) { %>
+            <h2 id="titreHomePage">Votre panier est vide </h2>
+        <% } else { %> 
+            <div class="row">
+                <div class="col-6">
+                    <h2 id="titreHomePage">My tickets  : </h2>
+                </div>
+                <div class="col-12">
+                    <table class="table table-borderless table-striped table-panier">
+                        <thead>
                             <tr>
-                                <th><%= i+1%></th>
-                                <th><%= panier[i].departure%> / <%= panier[i].arrival%></th>
-                                <th><%= panier[i].date%></th>
-                                <th><%= panier[i].departureTime%></th>
-                                <th><%= panier[i].price%> €</th>
+                                <th>N°</th>
+                                <th>Journey</th>
+                                <th>Date</th>
+                                <th>Departure time</th>
+                                <th>Price</th>
                             </tr>
-                            <% voyage = [{ departure: panier[i].departure, arrival: panier[i].arrival, date: panier[i].date, departureTime: panier[i].departureTime, price: panier[i].price}]; 
-                            total += panier[i].price * panier[i].quantity;
-                            %> 
-                        <% } %>         
-                    </tbody>
-                    <tfoot style="background-color: #d63031;">
-                        <th>Total</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th><%= total %> €</th>
-                    </tfoot>
-                </table>
-                <a href="users/derniersvoyages?voyage=<%= JSON.stringify(voyage) %> "><input type="button" class="btn btn-danger" value="Confirm"></a>
-                <a href="/index"><input type="button" class="btn btn-warning" value="Retour"></a>
+                        </thead>
+                        <tbody>
+                            <% let voyage = [];
+                               let total = 0;
+                                for (let i = 0; i < panier.length; i++) { %>
+                                <tr>
+                                    <th><%= i+1%></th>
+                                    <th><%= panier[i].departure%> / <%= panier[i].arrival%></th>
+                                    <th><%= dateFormat(panier[i].date)%></th>
+                                    <th><%= panier[i].departureTime%></th>
+                                    <th><%= panier[i].price%> €</th>
+                                </tr>
+                                <% voyage = [{ departure: panier[i].departure, arrival: panier[i].arrival, date: panier[i].date, departureTime: panier[i].departureTime, price: panier[i].price}]; 
+                                total += panier[i].price * panier[i].quantity;
+                                %> 
+                            <% } %>         
+                        </tbody>
+                        <tfoot style="background-color: #d63031;">
+                            <th>Total</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th><%= total %> €</th>
+                        </tfoot>
+                    </table>
+                    <a href="users/derniersvoyages?voyage=<%= JSON.stringify(voyage) %> "><input type="button" class="btn btn-danger" value="Confirm"></a>
+                    <a href="/index"><input type="button" class="btn btn-warning" value="Retour"></a>
+                </div>
             </div>
-        </div>
+        <% } %> 
+        
         
     </div>
     

@@ -30,7 +30,7 @@
                     <tbody>
                         <% for (let i = 0; i < ancienVoyages.length; i++) { %>
                             <tr>
-                                <th><%= ancienVoyages[i].date%></th>
+                                <th><%= dateFormat(ancienVoyages[i].date)%></th>
                                 <th><%= ancienVoyages[i].departure%> / <%= ancienVoyages[i].arrival%></th>
                                 <th><%= ancienVoyages[i].departureTime%></th>
                                 <th><%= ancienVoyages[i].price%> €</th>

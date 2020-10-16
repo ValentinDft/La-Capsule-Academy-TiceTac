@@ -55,7 +55,7 @@ router.post('/sign-in', async function(req,res,next){
     res.redirect('/index')
 
   } else {
-    res.render('login')
+    res.redirect('/index')
   }
 
   
@@ -63,7 +63,7 @@ router.post('/sign-in', async function(req,res,next){
 
 router.get('/logout', function(req,res,next){
   req.session.user = null;
-  res.redirect('/login')
+  res.redirect('/index')
 })
 
 

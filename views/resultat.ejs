@@ -15,7 +15,7 @@
     <div class="container"> 
         <div class="row">
             <div class="col-6">
-                <h2 id="titreHomePage">Tickets available on <%=  %>  : </h2>
+                <h2 id="titreHomePage">Tickets available on <%= %>  : </h2>
             </div>
         </div>
         <div class="row">
@@ -26,7 +26,7 @@
                             <%= resultatPositif[i].departure %>  / <%= resultatPositif[i].arrival %> 
                             <small>Train departure at : <%=  resultatPositif[i].departureTime %></small> 
                             <%= resultatPositif[i].price %> €
-                            <a href="/panier?id=<%= resultatPositif[i]._id %>&departure=<%= resultatPositif[i].departure %>&arrival=<%= resultatPositif[i].arrival %>&departureTime=<%= resultatPositif[i].departureTime %>&date=<%= resultatPositif[i].date%>&price=<%= resultatPositif[i].price%>"><input type="button" class="btn btn-danger" value="OK"></a>
+                            <a href="/panier?id=<%= resultatPositif[i]._id %>&departure=<%= resultatPositif[i].departure %>&arrival=<%= resultatPositif[i].arrival %>&departureTime=<%= resultatPositif[i].departureTime %>&date=<%= resultatPositif[i].date%>&price=<%= resultatPositif[i].price%>&quantity=<%= resultatPositif[i].quantity%>"><input type="button" class="btn btn-danger" value="OK"></a>
                         </li>
                     <% } %> 
                 </ul>

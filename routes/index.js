@@ -98,12 +98,13 @@ router.get('/panier', async function(req, res, next){
     departure : req.query.departure,
     arrival : req.query.arrival,
     price: req.query.price,
+    date: req.query.date,
     departureTime : req.query.departureTime,
     // id : req.query.id,
     quantity: 1
   })
 
-  console.log(panier);
+  //console.log(panier); 
 
   res.render('panier', {panier})
 })

@@ -3,10 +3,7 @@ var router = express.Router();
 
 var journeyModel = require('../models/journeys')
 
-
 const mongoose = require('mongoose');
-
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -30,20 +27,39 @@ router.get('/index', function(req, res, next) {
  
 
 router.post('/resultat', async function(req, res, next) {
-  let listeVoyages = await journeyModel.find();
-  let resultatPositif = [];
-  let ville =[];
+  if(req.session.user == null){
+    res.render('login')
+  } 
+  else 
+    { console.log("page resultat c'est bon")}
 
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+  let listeVoyages = await journeyModel.find();
+  console.log(req.body.departure)
+  let listeDateDisposParVille = await journeyModel.find({ departure : capitalizeFirstLetter(req.body.departure)});
+  console.log(listeDateDisposParVille)
+  let dateDispos = []
+  for (let i=0;i<listeDateDisposParVille.length;i++ ){
+      dateDispos.push(new Date(listeVoyages[i].date).getTime())
+}
+//  console.log(dateDispos)
+  
+  let ville =[];
   for (let i=0; i<listeVoyages.length; i++){
     ville.push(listeVoyages[i].departure.toLowerCase());
     ville.push(listeVoyages[i].arrival.toLowerCase());
     ville.push(new Date(listeVoyages[i].date).getTime())
   };
 
-
+  console.log(new Date(req.body.dateDeparture).getTime())
+  let resultatPositif = [];
   if(!ville.includes(req.body.departure.toLowerCase())
       || !ville.includes(req.body.arrival.toLowerCase())
         || !ville.includes(new Date(req.body.dateDeparture).getTime())
+          || !dateDispos.includes(new Date(req.body.dateDeparture).getTime())
       )
   {
     res.redirect('/noResult')
@@ -57,7 +73,8 @@ router.post('/resultat', async function(req, res, next) {
         {
            resultatPositif.push(listeVoyages[i] );      
            } 
-        }console.log(resultatPositif) 
+        }
+        // console.log(resultatPositif) 
   }
   res.render('resultat', {resultatPositif }); 
 })
@@ -72,32 +89,18 @@ router.get('/noResult', async function(req, res, next){
 
 router.get('/panier', async function(req, res, next){
   
+  if(req.session.user == null){
+    res.render('login')
+  } 
+  else 
+    { console.log("page panier c'est bon")}
+
   if(req.session.panier == undefined){
     req.session.panier = []
   }
   let panier = req.session.panier
   console.log("panier" + panier )
 
-  // let dejaDansLepanier = false;
-
-  // for(var i = 0; i< req.session.panier.length; i++){
-  //   if(req.session.panier[i].id == req.query.id){
-  //     req.session.panier[i].quantity = Number(req.session.panier[i].quantity) + 1;
-  //     dejaDansLepanier = true;
-  //   }
-  // }
-
-  // if(dejaDansLepanier == false){
-  //     req.session.panier.push({
-  //     departure: req.query.req.query.departure,
-  //     arrival: req.query.arrival,
-  //     price: req.query.bikePriceFromFront,
-  //     id: req.query.bikePriceFromFront,
-  //     quantity: 1
-  //   })
-  // }
-  // console.log(req.session.panier)
-  
 
   panier.push({
     departure : req.query.departure,

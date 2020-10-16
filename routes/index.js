@@ -15,15 +15,15 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/index', function(req, res, next) {
-//   if(req.session.user == null){
-//     res.render('login')
-//   } 
-//   else 
-//     {
-//       if(req.session.panier == undefined){
-//         req.session.panier = []
-//        }
-// }
+  if(req.session.user == null){
+    res.render('login')
+  } 
+  else 
+    {
+      if(req.session.panier == undefined){
+        req.session.panier = []
+       }
+} console.log(req.session.panier)
     res.render('index', {})
 })
 
@@ -69,10 +69,11 @@ router.get('/noResult', async function(req, res, next){
 
 router.get('/panier', async function(req, res, next){
   
-  // if(req.session.panier == undefined){
-  //   req.session.panier = []
-  // }
-
+  if(req.session.panier == undefined){
+    req.session.panier = []
+  }
+  let panier = req.session.panier
+  console.log("premier panier vide" + panier)
   // let dejaDansLepanier = false;
 
   // for(var i = 0; i< req.session.panier.length; i++){
@@ -83,28 +84,33 @@ router.get('/panier', async function(req, res, next){
   // }
 
   // if(dejaDansLepanier == false){
-  //     req.session.panier.push({
-  //     departure: req.query.req.query.departure,
-  //     arrival: req.query.arrival,
-  //     price: req.query.bikePriceFromFront,
-  //     id: req.query.bikePriceFromFront,
-  //     quantity: 1
-  //   })
+
+      panier.push({
+      departure: req.query.departure,
+      arrival: req.query.arrival,
+      departureTime : req.query.departureTime,
+      date: req.query.date,
+      price: req.query.price,
+      id: req.query.id,
+      quantity: 1
+    })
+
   // }
-  // console.log(req.session.panier)
-  panier = [];
+  console.log(panier)
+  
+  // panier = [];
 
-  panier.push({
-    departure : req.query.departure,
-    arrival : req.query.arrival,
-    price: req.query.price,
-    date: req.query.date,
-    departureTime : req.query.departureTime,
-    // id : req.query.id,
-    quantity: 1
-  })
+  // panier.push({
+  //   departure : req.query.departure,
+  //   arrival : req.query.arrival,
+  //   price: req.query.price,
+  //   departureTime : req.query.departureTime,
+  //   // id : req.query.id, session
+  //   quantity: 1
+  // })
 
-  //console.log(panier); 
+  // console.log(panier);
+
 
   res.render('panier', {panier})
 })

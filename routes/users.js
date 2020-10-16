@@ -31,7 +31,6 @@ console.log(req.body.lastname)
       id: newUserSave._id,
     }
   
-    console.log(req.session.user)
   
     res.redirect('/index')
   } else {
@@ -49,9 +48,10 @@ router.post('/sign-in', async function(req,res,next){
 
   if(searchUser!= null){
     req.session.user = {
-      mail: searchUser.mail,
+      email: searchUser.email,
       id: searchUser._id
     }
+    console.log(req.session.user.id)
     res.redirect('/index')
 
   } else {
@@ -69,18 +69,24 @@ router.get('/logout', function(req,res,next){
 
 router.get('/derniersvoyages', async function(req, res, next){
 
-  // var userSessionAffichage = await UserModel.
-  // findById(req.query.id)
-  // .populate('joureys')
-  // .exec();
-
   let voyage = JSON.parse(req.query.voyage);
-  console.log(voyage);
+  console.log(voyage)
+  
+  userActuel= await userModel.findById(req.session.user.email)
+  userActuel.journeys.push(
+    {
+    departure: req.query.voyage.departure,
+    arrival: req.query.voyage.arrival,
+    date: req.query.voyage.date,
+    departureTime: req.query.voyage.departureTime,
+    price: req.query.voyage.price,
+    }
+  );
+  let voyageSave = await userActuel.save();
+
 
   res.render('derniersvoyages', {})
 })
-
-
 
 
 

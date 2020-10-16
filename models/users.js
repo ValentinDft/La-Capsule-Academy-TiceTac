@@ -1,11 +1,20 @@
 var mongoose = require('./connection')
 
+var JourneysUserSchema = mongoose.Schema({
+    departure: String,
+    arrival: String,
+    date: Date,
+    departureTime: String,
+    price: Number
+})
+
+
 var userSchema = mongoose.Schema({
     lastName: String,
     firstName: String,
     email: String,
     password: String,
-    journeys :[{ type:mongoose.Schema.Types.ObjectId, ref: 'journeys'}],
+    journeys :[JourneysUserSchema],
 })
 
 var userModel = mongoose.model('users', userSchema)

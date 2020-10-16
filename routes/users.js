@@ -30,7 +30,7 @@ console.log(req.body.lastname)
       email: newUserSave.email,
       id: newUserSave._id,
     }
-  
+    console.log("apres sign up" + req.session.user )
   
     res.redirect('/index')
   } else {
@@ -51,7 +51,7 @@ router.post('/sign-in', async function(req,res,next){
       email: searchUser.email,
       id: searchUser._id
     }
-    console.log(req.session.user.id)
+    console.log("apres sign up" + req.session.user + req.session.user.id )
     res.redirect('/index')
 
   } else {
@@ -70,19 +70,17 @@ router.get('/logout', function(req,res,next){
 router.get('/derniersvoyages', async function(req, res, next){
 
   let voyage = JSON.parse(req.query.voyage);
-  console.log(voyage)
-  
-  userActuel= await userModel.findById(req.session.user.email)
-  userActuel.journeys.push(
-    {
-    departure: req.query.voyage.departure,
-    arrival: req.query.voyage.arrival,
-    date: req.query.voyage.date,
-    departureTime: req.query.voyage.departureTime,
-    price: req.query.voyage.price,
-    }
-  );
-  let voyageSave = await userActuel.save();
+
+  userActuel= await userModel.find({email : req.session.user.email})
+  let ancienVoyages = userActuel[0].journeys
+
+   for(let i=0; i<voyage.length; i++){
+    ancienVoyages.push(voyage[i])
+   }
+  console.log(ancienVoyages)
+
+  await userModel.updateOne({ email: userActuel[0].email },  { journeys: ancienVoyages } )
+
 
 
   res.render('derniersvoyages', {ancienVoyages})

@@ -6,7 +6,7 @@ var options = {
     useNewUrlParser: true,
 }
 
-mongoose.connect('mongodb+srv://tictac:tictac@cluster0.vmsag.mongodb.net/tictac?retryWrites=true&w=majority',
+mongoose.connect(process.env.BDD_KEY,
    options,
    function(err) {
     if (err) {
